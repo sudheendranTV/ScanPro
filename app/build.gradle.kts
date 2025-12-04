@@ -15,9 +15,11 @@ android {
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
-        manifestPlaceholders.putAll(mapOf(
-            "appAuthRedirectScheme" to "YOUR_CUSTOM_SCHEME"
-        ))
+        manifestPlaceholders.putAll(
+            mapOf(
+                "appAuthRedirectScheme" to "YOUR_CUSTOM_SCHEME"
+            )
+        )
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -46,13 +48,19 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2")
 
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.0")
-    // OAuth2 - AppAuth library
     implementation("net.openid:appauth:0.11.1")
     implementation("androidx.room:room-runtime:2.8.4")
     //kapt("androidx.room:room-compiler:2.6.1")
     implementation("androidx.room:room-ktx:2.8.4")
-    // Security encrypted storage
     implementation("androidx.security:security-crypto:1.1.0-alpha06")
+    implementation("com.google.android.gms:play-services-auth:21.2.0")
+
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
+
+    implementation("androidx.credentials:credentials:1.3.0")
+    implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
+    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
+
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

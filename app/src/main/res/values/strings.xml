@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Scan Pro</string>
+    <string name="please_wait">Please wait..</string>
 </resources>

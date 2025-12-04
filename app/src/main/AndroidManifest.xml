@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -14,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ScanPro">
         <activity
+            android:name=".ui.HomeActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.LoginActivity"
             android:exported="false" />
         <activity
@@ -24,16 +28,19 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <!-- AppAuth Redirect receiver -->
+        </activity> <!-- AppAuth Redirect receiver -->
         <activity
-            android:exported="true"
-            android:name="net.openid.appauth.RedirectUriReceiverActivity">
+            android:name="net.openid.appauth.RedirectUriReceiverActivity"
+            android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="com.scanpro" android:host="oauth2redirect"/>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="oauth2redirect"
+                    android:scheme="com.scanpro" />
             </intent-filter>
         </activity>
     </application>

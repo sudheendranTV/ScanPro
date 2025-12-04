@@ -1,25 +1,40 @@
 package com.example.scanpro
 
+import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
+import com.example.scanpro.data.TokenStore
+import com.example.scanpro.ui.HomeActivity
+import com.example.scanpro.ui.LoginActivity
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var tokenStore: TokenStore
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
 
 
+        tokenStore = TokenStore(this)
 
+        decideStartDestination()
+    }
+
+    private fun decideStartDestination() {
+        lifecycleScope.launch {
+            val token = tokenStore.accessToken.first()
+
+            if (token.isNullOrEmpty()) {
+                startActivity(Intent(this@MainActivity, LoginActivity::class.java))
+            } else {
+                startActivity(Intent(this@MainActivity, HomeActivity::class.java))
+            }
+
+            finish()
         }
     }
 }
