@@ -20,13 +20,27 @@
          />
 
      <ProgressBar
-         android:visibility="gone"
+         android:visibility="visible"
          android:id="@+id/scanningProgress"
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
          android:indeterminate="true"
          app:layout_constraintTop_toTopOf="parent"
          app:layout_constraintBottom_toBottomOf="parent" />
+
+     <androidx.appcompat.widget.AppCompatTextView
+         android:visibility="visible"
+         android:id="@+id/txtNoDevices"
+         android:layout_width="0dp"
+         android:gravity="center"
+         android:layout_height="wrap_content"
+         android:text="@string/no_devices_found"
+         android:textColor="@color/black"
+         android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent" />
 
      <com.google.android.material.button.MaterialButton
          android:id="@+id/btnScnDevices"

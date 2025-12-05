@@ -3,10 +3,12 @@ package com.example.scanpro.ui
 import MdnsDiscoveryManager
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.ProgressBar
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,6 +38,7 @@ class HomeActivity : AppCompatActivity() {
         scanBtn = findViewById(R.id.btnScnDevices)
         scanningProgress = findViewById(R.id.scanningProgress)
         val recyclerview = findViewById<RecyclerView>(R.id.rvDevices)
+        val noDevicesTxt = findViewById<AppCompatTextView>(R.id.txtNoDevices)
 
         adapter = DeviceAdapter { device ->
             val i = Intent(this, DetailActivity::class.java)
@@ -53,14 +56,21 @@ class HomeActivity : AppCompatActivity() {
         }
 
         scanBtn.setOnClickListener {
-            scanningProgress.visibility = ProgressBar.VISIBLE
+            scanningProgress.visibility = View.VISIBLE
             viewModel.startDiscovery()
         }
 
         lifecycleScope.launch {
             viewModel.devices.collect {
-                adapter.submitList(it)
-                scanningProgress.visibility = ProgressBar.GONE
+                if (it.isEmpty()) {
+                    noDevicesTxt.visibility = View.VISIBLE
+                    scanningProgress.visibility = View.GONE
+                } else {
+                    adapter.submitList(it)
+                    scanningProgress.visibility = View.GONE
+                    noDevicesTxt.visibility = View.GONE
+                }
+
             }
         }
     }

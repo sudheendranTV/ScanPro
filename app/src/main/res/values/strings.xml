@@ -15,5 +15,6 @@
     <string name="device_full_info">Device name: %1$s </string>
     <string name="device_ip_address">Device IP address: %1$s </string>
     <string name="device_port">Device Port: %1$s</string>
+    <string name="no_devices_found">No devices found</string>
 
 </resources>
