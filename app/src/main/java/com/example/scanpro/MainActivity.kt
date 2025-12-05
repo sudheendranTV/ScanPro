@@ -7,6 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.scanpro.data.TokenStore
 import com.example.scanpro.ui.HomeActivity
 import com.example.scanpro.ui.LoginActivity
+import com.example.scanpro.utils.NetworkUtils
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
@@ -21,11 +22,19 @@ class MainActivity : AppCompatActivity() {
 
         tokenStore = TokenStore(this)
 
+
         decideStartDestination()
     }
 
     private fun decideStartDestination() {
         lifecycleScope.launch {
+
+            if (!NetworkUtils.isNetworkAvailable(this@MainActivity)) {
+                tokenStore.clearAccessToken()
+                startActivity(Intent(this@MainActivity, LoginActivity::class.java))
+                return@launch
+            }
+
             val token = tokenStore.accessToken.first()
 
             if (token.isNullOrEmpty()) {
