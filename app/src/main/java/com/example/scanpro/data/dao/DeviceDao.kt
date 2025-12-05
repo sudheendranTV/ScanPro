@@ -12,10 +12,15 @@ interface DeviceDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(device: DeviceEntity)
+    @Query("Delete from devices")
+    suspend fun deleteStoredDevices()
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(devices: List<DeviceEntity>)
 
     @Query("UPDATE devices SET isOnline = :online, lastSeen = :time WHERE ipAddress = :ip")
     suspend fun updateStatus(ip: String, online: Boolean, time: Long)
+
+    @Update
+    suspend fun updateDevice(device: DeviceEntity)
 }

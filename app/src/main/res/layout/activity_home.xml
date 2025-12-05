@@ -19,6 +19,15 @@
          app:layout_constraintStart_toStartOf="parent"
          />
 
+     <ProgressBar
+         android:visibility="gone"
+         android:id="@+id/scanningProgress"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:indeterminate="true"
+         app:layout_constraintTop_toTopOf="parent"
+         app:layout_constraintBottom_toBottomOf="parent" />
+
      <com.google.android.material.button.MaterialButton
          android:id="@+id/btnScnDevices"
          android:layout_width="wrap_content"

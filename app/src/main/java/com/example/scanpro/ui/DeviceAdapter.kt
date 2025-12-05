@@ -1,5 +1,6 @@
 package com.example.scanpro.ui
 
+import android.provider.Settings.Global.getString
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,32 +22,33 @@ class DeviceAdapter(  private val onClick: (Device) -> Unit) : RecyclerView.Adap
    inner class DeviceVH(val view: View) : RecyclerView.ViewHolder(view) {
         val txtName = view.findViewById<TextView>(R.id.txt_name)
         val txtIp = view.findViewById<TextView>(R.id.txt_ip)
+        val status = view.findViewById<TextView>(R.id.status)
 
-       fun onBind(item: Device) {
-           txtName.text = item.name
-           txtIp.text = item.ipAddress
+       fun onBind(device: Device) {
+           txtName.text = view.context.getString(R.string.device_found, device.name)
+           txtIp.text = view.context.getString(R.string.device_ip, device.ipAddress)
+           if (device.isOnline){
+               status.text = view.context.getString(R.string.online)
+               status.setTextColor(view.context.getColor(R.color.green))
+           } else {
+               status.text = view.context.getString(R.string.offline)
+               status.setTextColor(view.context.getColor(R.color.red))
+           }
 
            itemView.setOnClickListener {
-               onClick(item)   // PASS CLICK UPWARD
+               onClick(device)
            }
        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DeviceVH {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.dns_item
-
-
-
-
-                , parent, false)
+            .inflate(R.layout.dns_item, parent, false)
         return DeviceVH(view)
     }
 
     override fun onBindViewHolder(holder: DeviceVH, position: Int) {
         val device = list[position]
-        holder.txtName.text = device.name
-        holder.txtIp.text = device.ipAddress
         holder.onBind(list[position])
     }
 

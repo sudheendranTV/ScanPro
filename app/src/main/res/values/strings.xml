@@ -4,5 +4,16 @@
     <string name="name">Name</string>
     <string name="ip">IP</string>
     <string name="online">Online</string>
+    <string name="offline">Offline</string>
     <string name="scan_devices">Scan devices</string>
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="port">port</string>
+
+    <string name="device_found">Device: %1$s</string>
+    <string name="device_ip">IP: %1$s</string>
+    <string name="device_status">Status: %1$s</string>
+    <string name="device_full_info">Device name: %1$s </string>
+    <string name="device_ip_address">Device IP address: %1$s </string>
+    <string name="device_port">Device Port: %1$s</string>
+
 </resources>

@@ -9,7 +9,6 @@ import com.example.scanpro.data.TokenStore
 import com.example.scanpro.ui.HomeActivity
 import com.example.scanpro.ui.LoginActivity
 import com.example.scanpro.utils.NetworkUtils
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
@@ -19,12 +18,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        //setContentView(R.layout.activity_main)
 
 
         tokenStore = TokenStore(this)
-
-
         decideStartDestination()
     }
 
@@ -34,7 +31,11 @@ class MainActivity : AppCompatActivity() {
             if (!NetworkUtils.isNetworkAvailable(this@MainActivity)) {
                 tokenStore.clearAccessToken()
                 startActivity(Intent(this@MainActivity, LoginActivity::class.java))
-                Toast.makeText(this@MainActivity, "No internet connection", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this@MainActivity,
+                    getString(R.string.no_internet_connection), Toast.LENGTH_LONG
+                ).show()
+                finish()
                 return@launch
             }
 
@@ -42,10 +43,8 @@ class MainActivity : AppCompatActivity() {
 
             if (token.isNullOrEmpty()) {
                 startActivity(Intent(this@MainActivity, LoginActivity::class.java))
-                finish()
             } else {
                 startActivity(Intent(this@MainActivity, HomeActivity::class.java))
-                finish()
             }
 
             finish()
