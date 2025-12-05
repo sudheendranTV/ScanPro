@@ -22,12 +22,10 @@ import kotlinx.coroutines.launch
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var loginBtn: MaterialButton
-    //private val loginViewModel: LoginViewModel by viewModels()
     private val TAG = "LoginActivity"
     private val loginViewModel: LoginViewModel by viewModels {
         LoginViewModelFactory(this)
     }
-    //private val credentialManager by lazy { CredentialManager.create(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,4 +92,6 @@ class LoginActivity : AppCompatActivity() {
         startActivity(Intent(this, HomeActivity::class.java))
         finish()
     }
+
+
 }

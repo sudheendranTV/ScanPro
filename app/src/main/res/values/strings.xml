@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Scan Pro</string>
     <string name="please_wait">Please wait..</string>
+    <string name="name">Name</string>
+    <string name="ip">IP</string>
+    <string name="online">Online</string>
+    <string name="scan_devices">Scan devices</string>
 </resources>

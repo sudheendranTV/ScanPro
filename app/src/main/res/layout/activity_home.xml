@@ -5,17 +5,30 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="12dp"
     tools:context=".ui.HomeActivity">
 
-     <androidx.appcompat.widget.AppCompatTextView
-         android:layout_width="0dp"
+     <androidx.recyclerview.widget.RecyclerView
+         android:id="@+id/rvDevices"
+         android:layout_width="match_parent"
+         android:layout_height="0dp"
+         android:padding="6dp"
+         tools:listitem="@layout/dns_item"
+         app:layout_constraintHeight_percent=".7"
+         app:layout_constraintBottom_toTopOf="@id/btnScnDevices"
+         app:layout_constraintStart_toStartOf="parent"
+         />
+
+     <com.google.android.material.button.MaterialButton
+         android:id="@+id/btnScnDevices"
+         android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         android:text="Home"
-         android:gravity="center"
-         app:layout_constraintTop_toTopOf="parent"
-         app:layout_constraintBottom_toBottomOf="parent"
+         android:text="@string/scan_devices"
+         android:textColor="@color/white"
+         app:layout_constraintTop_toBottomOf="@id/rvDevices"
          app:layout_constraintStart_toStartOf="parent"
          app:layout_constraintEnd_toEndOf="parent"
          />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

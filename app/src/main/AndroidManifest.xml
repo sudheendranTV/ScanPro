@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ScanPro">
         <activity
+            android:name=".ui.DetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.HomeActivity"
             android:exported="false" />
         <activity
