@@ -8,6 +8,7 @@ import com.example.scanpro.domain.DeviceRepository
 import com.example.scanpro.domain.model.Device
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
@@ -26,17 +27,25 @@ class HomeViewModel(
     }
 
     private fun loadSavedDevices() {
+
+        viewModelScope.launch {
+            repo.getDevices().collect { devices ->
+                _devices.value = devices
+            }
+        }
+
+        // checking the device status
         viewModelScope.launch(Dispatchers.IO) {
-            repo.getDevices().collect { dbList ->
-                val updatedList = dbList.map { device ->
-                    val isOnline = repo.isDeviceReachable(device.ipAddress, device.port, 1500)
-                    val updatedDevice = device.copy(isOnline = isOnline)
+            while (true) {
+                val devices = repo.getDevices()
 
-                    repo.updateDevice(updatedDevice)
-
-                    updatedDevice
+                devices.collect { devices ->
+                    devices.forEach { device ->
+                        val isOnline = repo.isDeviceReachable(device.ipAddress, device.port, 1500)
+                        repo.updateDevice(device.copy(isOnline = isOnline))
+                    }
                 }
-                _devices.value = updatedList
+                delay(2000)
             }
         }
     }
